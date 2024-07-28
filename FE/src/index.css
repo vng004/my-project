@@ -1,0 +1,98 @@
+/* CSS cho ô input */
+.custom-input-container {
+  position: relative;
+}
+
+.custom-input-container input {
+  background-color: transparent;
+}
+
+.custom-input-container label {
+  position: absolute;
+  left: 16px;
+  top: 35%;
+  transform: translateY(-50%);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.custom-input-container input:focus + label,
+.custom-input-container input:not(:placeholder-shown) + label {
+  top: -1px;
+  left: 16px;
+  font-size: 12px;
+  background-color: white;
+  padding: 0 4px;
+  color: var(--focused-color);
+}
+
+.custom-input-container input:focus {
+  border-width: 2px;
+}
+
+.custom-input-container input:focus + label {
+  --focused-color: #003F62;
+}
+
+.custom-input-container input:focus.border-red-500 + label {
+  --focused-color: red;
+}
+
+.custom-input-container input:focus {
+  border-color: black;
+}
+
+.custom-input-container input:focus.border-red-500 {
+  border-color: red;
+}
+
+
+
+
+@layer utilities {
+  .hover\:border-l-curved::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: white;
+    border-left: 4px solid blue;
+    transition: width 0.3s ease, border-radius 0.3s ease;
+    z-index: -1;
+  }
+
+  .hover\:border-l-curved:hover::before {
+    width: 10px;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .focus\:border-l-curved:focus::before {
+    width: 10px;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .relative {
+    position: relative;
+  }
+}
+
+
+
+/* search */
+
+.no-scroll {
+  overflow: hidden;
+}
+
+
+/* Thanh cuộn */
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.border-r {
+  border-right: 1px solid #ddd;
+}
