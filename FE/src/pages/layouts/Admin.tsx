@@ -13,7 +13,7 @@ const Admin = () => {
      nav('/login')
   }
   return (
-    <div className="font-sans bg-gray-100 w-full">
+    <div className="font-sans bg-gray-100 min-w-full  min-h-[720px]" >
       <Navbar />
       <Outlet/>
     </div>

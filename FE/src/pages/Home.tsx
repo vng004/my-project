@@ -3,10 +3,10 @@ import { ProductContext, ProductContextType } from '../contexts/ProductContext'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
-  const { state, formatPrice } = useContext(ProductContext) as ProductContextType
+  // const { state, formatPrice } = useContext(ProductContext) as ProductContextType
   return (
     <div>
-      <div className='flex justify-center h-auto pt-40'>
+      {/* <div className='flex justify-center h-auto pt-40'>
       <div className='flex space-x-8 mb-20'>
         {state.products.slice(0, 4).map((p) => (
           <div className='w-[320px] h-[300px]'>
@@ -81,7 +81,7 @@ const Home = () => {
           </div>
         ))}
       </div>
-    </div>
+    </div> */}
     </div>
   )
 }

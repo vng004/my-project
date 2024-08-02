@@ -96,3 +96,32 @@
 .border-r {
   border-right: 1px solid #ddd;
 }
+
+
+
+
+.box:checked::before
+{
+  background-color: #B3D4E5;
+}
+
+.product-container {
+  position: relative;
+}
+
+.product-container:hover .product-details {
+  display: none;
+}
+
+.product-container:hover .product-buttons {
+  display: flex;
+}
+
+.product-buttons {
+  display: none;
+}
+.no-products {
+  justify-content: flex-start;
+}
+
+

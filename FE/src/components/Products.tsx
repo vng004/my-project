@@ -1,122 +1,83 @@
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductContext, ProductContextType } from '../contexts/ProductContext';
-import { useContext, useState } from 'react';
 import { AuthContext, AuthContextType } from '../contexts/AuthContext';
 
 const Products = () => {
   const { state, onRemove } = useContext(ProductContext) as ProductContextType;
+  const { isCollapsed } = useContext(AuthContext) as AuthContextType;
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const [hoveredRemoveButton, setHoveredRemoveButton] = useState<number | null>(null);
-  const {isCollapsed } = useContext(AuthContext) as AuthContextType
+  const { formatPrice } = useContext(ProductContext) as ProductContextType;
 
 
   return (
-    <div>
-      <div className={`${!isCollapsed ?' w-[1270px] ml-[270px]' :'w-[1350px]'}  mt-20   h-[auto] flex justify-center`}>
-        <div className='w-[1100px]  pt-[30px]'>
-          <div className="flex justify-between items-center mb-10 px-6 py-7 rounded-full bg-white border border-blue-400 text-[19px] shadow-xl">
-            <h2 className="font-bold text-blue-400">QUẢN LÍ SẢN PHẨM</h2>
-            <Link to="/admin/products-add" className='border-2 border-blue-400 px-6 hover:text-black text-blue-400 hover:border-black'>
-              <i className="fa-solid fa-plus text-[22px]"></i>
-            </Link>
-          </div>
-          <div className='pb-10 text-[19px]'>
-            <table className={`${!isCollapsed ?'w-[1100px] shadow-xl' :"w-[1340px]"}`}>
-              <thead>
-                <tr className="bg-gray-100 text-gray-700 uppercase text-[13px] leading-normal">
-                  <th className="py-4 px-6 text-left pl-4 ">Ảnh</th>
-                  <th className="py-4 px-6 text-left pl-10 ">Tên sản phẩm</th>
-                  <th className="py-4 px-6 text-left pl-10 ">Giá sản phẩm</th>
-                  <th className="py-4 px-6 text-left pl-10 ">Mô tả</th>
-                  <th className="py-4 px-6 text-left pl-10 ">Danh mục</th>
-                  <th className="py-4 px-6 text-left pl-10 "></th>
-                </tr>
-              </thead>
+    <div className={`${!isCollapsed ? 'w-[1125px] ml-[340px]' : 'w-[1340px] ml-[125px]'} pt-16 h-[auto]  pb-20 text-[#123448]`}>
+        <div className={`flex justify-between items-center border-b-2 pb-2  text-gray-700`}>
+          <h2 className="font-medium ">QUẢN LÍ SẢN PHẨM</h2>
+          <Link to="/admin/products-add" className='border-2 rounded-xl px-6 py-2 hover:shadow-md bg-white '>
+           Thêm mới <i className="fa-solid fa-plus"></i>
+          </Link>
+        </div>
+        <div className=''>
+          <div className={` text-gray-700`}>
+            <div className="flex text-[15px] uppercase font-medium pb-2 pt-4">
+              <div className=" px-10  ">Ảnh</div>
+              <div className=" px-24  ">Tên sản phẩm</div>
+              <div className=" px-10  -ml-4">Giá sản phẩm</div>
+              <div className=" px-10  ">Mô tả</div>
+              <div className=" px-10  "></div>
+            </div>
 
-              <tbody className="text-gray-400 text-[13px] border-2">
-                {state.products?.map((p, index) => (
-                  <tr
-                    className="relative hover:text-black hover:border hover:border-black cursor-pointer"
-                    key={index}
-                    onMouseEnter={() => setHoveredRow(index)}
-                    onMouseLeave={() => {
-                      setHoveredRow(null);
-                      setHoveredRemoveButton(null);
-                    }}
-                  >
-                    <td
-                      onClick={() => {
-                        window.location.href = `/admin/products-edit/${p._id}`;
-                      }}
-                      className="py-2 px-10 pl-2 flex justify-center transition-all  border-t-gray-500"
-                    >
-                      <img src={p.thumbnail} alt={p.title} width={'50px'} />
-                      {hoveredRow === index && hoveredRemoveButton === null && (
-                        <span className='text-[12px] font-sans absolute bottom-[15px] left-[-85px] bg-black text-gray-50 px-3 py-[6px] rounded-full'>
-                          Nhấn để sửa
-                        </span>
-                      )}
-                    </td>
-                    <td
-                      onClick={() => {
-                        window.location.href = `/admin/products-edit/${p._id}`;
-                      }}
-                      className="py-2 px-10 transition-all"
-                    >
-                      {p.title}
-                    </td>
-                    <td
-                      onClick={() => {
-                        window.location.href = `/admin/products-edit/${p._id}`;
-                      }}
-                      className="py-2 px-10 transition-all"
-                    >
-                      {p.price}
-                    </td>
-                    <td
-                      onClick={() => {
-                        window.location.href = `/admin/products-edit/${p._id}`;
-                      }}
-                      className="py-2 px-10 transition-all"
-                    >
-                      {p.description}
-                    </td>
-                    <td
-                      onClick={() => {
-                        window.location.href = `/admin/products-edit/${p._id}`;
-                      }}
-                      className="py-2 px-10 transition-all"
-                    >
-                      {p.category?.title}
-                    </td>
-                    <td className="py-2 px-5  transition-all ">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onRemove(p._id!);
-                        }}
-                        onMouseEnter={() => setHoveredRemoveButton(index)}
-                        onMouseLeave={() => setHoveredRemoveButton(null)}
-                        className="relative"
-                      >
-                        {hoveredRow === index && hoveredRemoveButton === index ? (
-                          <span className='text-[12px] font-sans bg-black text-white p-3 absolute top-[-26px] right-[-32px]  rounded-full'>
-                            Xóa
+
+            {state.products?.map((p, index) => (
+              <div key={index} className={`flex items-center border rounded-xl bg-white text-[14px] mt-3 hover:shadow-md`}
+                onMouseEnter={() => setHoveredRow(index)}
+                onMouseLeave={() => setHoveredRow(null)}>
+                <Link to={`/admin/products-edit/${p._id}`} className="flex items-center w-full space-x-7 ">
+                  <div className="py-2 px-10 ">
+                    <img src={p.thumbnail} alt={p.title} width={'60px'} />
+                  </div>
+                  <div className="py-2 px-10">
+                    <div className='font-medium'>{p.title}</div>
+                    <div> {p.category?.title} </div>
+                  </div>
+                  <div className="py-2 px-10">
+                    {formatPrice(p.price)}
+                  </div>
+                  <div className="py-2 px-20 pl-20">
+                    {p.description}
+                  </div>
+                </Link>
+
+                {hoveredRow === index && (
+                  <div className="py-2 px-10 flex space-x-2">
+                    <div className="relative group">
+                      <button onClick={(e) => e.stopPropagation()} className="relative">
+                        <Link to={`/admin/products-edit/${p._id}`}>
+                          <i className="fa-regular fa-pen-to-square text-gray-400 hover:text-black text-[22px]"></i>
+                          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100">
+                            Sửa
                           </span>
-                        ) : (
-                          <i className="fa-regular fa-trash-can text-gray-400 hover:text-black text-[22px]"></i>
-                        )}
+                        </Link>
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                    <div className="relative group">
+                      <button onClick={(e) => { e.stopPropagation(); onRemove(p._id!); }} className="relative">
+                        <i className="fa-regular fa-trash-can text-gray-400 hover:text-black text-[22px]"></i>
+                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100">
+                          Xóa
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
-      </div>
     </div>
-  )
-}
+
+  );
+};
 
 export default Products;

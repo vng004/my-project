@@ -45,7 +45,7 @@ const AuthForm = ({ isLogin }: Props) => {
 
 
 
-      <div className='relative min-h-screen flex justify-center  space-x-[200px]  items-center  rounded-3xl z-10'>
+      <div className='relative min-h-screen flex justify-center  space-x-[190px]  items-center  rounded-3xl z-10'>
         <div className="flex-col flex max-w-[400px]">
           <div className="self-start hidden lg:flex flex-col text-gray-300">
             <h1 className="my-3 font-semibold text-4xl">Chào mừng bạn!</h1>
@@ -151,7 +151,7 @@ const AuthForm = ({ isLogin }: Props) => {
             </div>
           )}
         </div>
-        <div className='absolute right-[-200px] top-2 text-gray-200 hover:text-red-500 text-[30px]  z-10 '>
+        <div className='absolute right-[-180px] top-2 text-gray-200 hover:text-red-500 text-[30px]  z-10 '>
           <Link to={'/'} ><i className="fa-solid fa-circle-xmark"></i></Link>
         </div>
       </div>

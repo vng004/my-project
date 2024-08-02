@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer, useState } from "react";
 import { Product } from "../interface/product";
 import { instance } from "../api";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { productReducer } from "../reducers/productReducers";
 
 export type ProductContextType = {
@@ -21,14 +21,14 @@ export const ProductContext = createContext<ProductContextType | undefined>(unde
 export const ProductProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(productReducer, { products: [] });
   const [productsByCate, setProductsByCate] = useState<Product[]>([])
-  const nav = useNavigate();
+  // const nav = useNavigate();
   const totalProducts = state.products.length
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await instance.get('/products');
-        dispatch({ type: "SET_PRODUCTS", payload: data.data });
+        dispatch({ type: "SET_PRODUCTS", payload: data.data.docs });
       } catch (error) {
         toast.error('Không thể tải danh sách sản phẩm');
         console.log(error);
@@ -69,20 +69,19 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
         dispatch({ type: "ADD_PRODUCT", payload: data.data });
         toast.success('Thêm mới sản phẩm thành công!');
       }
-      const { data } = await instance.get('/products');
-      dispatch({ type: "SET_PRODUCTS", payload: data.data });
-      nav('/admin/products');
+      window.location.href = `/admin/products`
     } catch (error) {
       toast.error(product._id ? 'Không thể cập nhật sản phẩm' : 'Không thể thêm mới sản phẩm');
       console.error(error);
     }
   };
   const formatPrice = (price: number) => {
-    return Intl.NumberFormat('vi').format(price);
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
+  
 
   return (
-    <ProductContext.Provider value={{ state, dispatch, onRemove, handleProduct, formatPrice, totalProducts, productsByCategory,productsByCate }}>
+    <ProductContext.Provider value={{ state, dispatch, onRemove, handleProduct, formatPrice, totalProducts, productsByCategory, productsByCate }}>
       {children}
     </ProductContext.Provider>
   );

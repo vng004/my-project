@@ -3,18 +3,20 @@ import Products from './components/Products'
 import ProductForm from './components/ProductForm'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import CategoriesForm from './components/CategoriesForm'
 import AuthForm from './components/AuthForm'
 import Admin from './pages/layouts/Admin'
 import Home from './pages/Home'
 import Categories from './components/Categories'
 import ProductDetail from './pages/ProductDetail'
-import Cart from './pages/Cart'
 import Client from './pages/layouts/Client'
 import Notfound from './pages/NotFound'
 import Dashboard from './components/Dasboard'
-// import ProductsByCategory from './pages/ProductsByCategory'
 import ListProducts from './pages/ListProducts'
+import Cart from './pages/Cart'
+import Profile from './pages/Profile'
+import Checkout from './pages/Checkout'
+import Orders from './components/Orders'
+import OrderForm from './components/OrderForm'
 
 function App() {
 
@@ -24,13 +26,15 @@ function App() {
       <Routes>
 
         <Route path='/admin' element={<Admin />}>
-        <Route path='/admin/dashboard' element={<Dashboard />} />
+        <Route index element={<Dashboard />} />
           <Route path='/admin/products' element={<Products />} />
           <Route path='/admin/products-add' element={<ProductForm />} />
           <Route path='/admin/products-edit/:id' element={<ProductForm />} />
           <Route path='/admin/categories' element={<Categories />} />
-          <Route path='/admin/categories-add' element={<CategoriesForm />} />
-          <Route path='/admin/categories-edit/:id' element={<CategoriesForm />} />
+          <Route path='/admin/orders' element={<Orders />} />
+          <Route path='/admin/orders-edit/:id' element={<OrderForm />} />
+
+          <Route path='/admin/categories-edit/:id' element={<Categories />} />
         </Route>
 
         <Route path='/' element={<Client />}>
@@ -41,6 +45,9 @@ function App() {
           <Route path='/products/category/:id' element={<ListProducts />} />
           <Route path='/products/category' element={<ListProducts />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/checkout' element={<Checkout />} />
+          
         </Route>
         <Route path='*' element={<Notfound />} />
 

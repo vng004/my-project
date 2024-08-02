@@ -8,7 +8,9 @@ import { categoryReducer } from "../reducers/categoryReducers";
 export type CategoryContextType = {
   stateC: {categories: Category[]},
   onRemove: (id: string) => void
-  handleCategory: (data: Category) => void
+  handleCategory: (data: Category) => void,
+  dispatch: React.Dispatch<any>;
+
   totalCategories:number
 
 }
@@ -65,7 +67,7 @@ export const CategoryProvider = ({ children }: { children: React.ReactNode }) =>
 
 
   return (
-    <CategoryContext.Provider value={{ stateC, onRemove, handleCategory,totalCategories }}>
+    <CategoryContext.Provider value={{ stateC,dispatch, onRemove, handleCategory,totalCategories }}>
       {children}
     </CategoryContext.Provider>
   );
