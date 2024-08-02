@@ -1,17 +1,17 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const schemaProduct = z.object({
   title: z.string().min(6, { message: "Tên sản phẩm phải có ít nhất 6 ký tự!" }),
   price: z.number().min(0, { message: "Giá sản phẩm phải là số dương!" }),
-  thumbnail: z.string().nonempty({ message: "URL hình ảnh không được để trống!" }),
+  thumbnail: z.any().optional(),
   description: z.string().optional(),
   category: z.string().nonempty({ message: "Danh mục không được để trống!" }),
 });
 
+
 export const categorySchema = z.object({
   title: z.string().min(6, 'Tên danh mục phải có ít nhất 6 ký tự!'),
   description: z.string().optional(),
-  // slug: z.string().optional(),
 
 })
 

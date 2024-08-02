@@ -17,6 +17,7 @@ import Profile from './pages/Profile'
 import Checkout from './pages/Checkout'
 import Orders from './components/Orders'
 import OrderForm from './components/OrderForm'
+import CategoryForm from './components/CategoryForm'
 
 function App() {
 
@@ -31,10 +32,10 @@ function App() {
           <Route path='/admin/products-add' element={<ProductForm />} />
           <Route path='/admin/products-edit/:id' element={<ProductForm />} />
           <Route path='/admin/categories' element={<Categories />} />
+          <Route path='/admin/categories-add' element={<CategoryForm />} />
           <Route path='/admin/orders' element={<Orders />} />
           <Route path='/admin/orders-edit/:id' element={<OrderForm />} />
-
-          <Route path='/admin/categories-edit/:id' element={<Categories />} />
+          <Route path='/admin/categories-edit/:id' element={<CategoryForm />} />
         </Route>
 
         <Route path='/' element={<Client />}>
