@@ -70,7 +70,6 @@ const OrderForm = () => {
                 <option value="Đang xử lý">Đang xử lý</option>
                 <option value="Đã gửi hàng">Đã gửi hàng</option>
                 <option value="Đã giao hàng">Đã giao hàng</option>
-                <option value="Đã hủy">Đã hủy</option>
               </select>
               {errors.orderStatus && <p className="pl-[17px] text-red-500">{errors.orderStatus.message}</p>}
             </div>

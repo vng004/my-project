@@ -23,8 +23,8 @@ const Products = () => {
             <div className="flex text-[15px] uppercase font-medium pb-2 pt-4">
               <div className=" px-10  ">Ảnh</div>
               <div className=" px-24  ">Tên sản phẩm</div>
-              <div className=" px-10  -ml-4">Giá sản phẩm</div>
-              <div className=" px-10  ">Mô tả</div>
+              <div className=" px-10  ml-[75px]">Giá sản phẩm</div>
+              <div className=" px-10  ml-11">Mô tả</div>
               <div className=" px-10  "></div>
             </div>
 
@@ -33,15 +33,15 @@ const Products = () => {
               <div key={index} className={`flex items-center border rounded-xl bg-white text-[14px] mt-3 hover:shadow-md`}
                 onMouseEnter={() => setHoveredRow(index)}
                 onMouseLeave={() => setHoveredRow(null)}>
-                <Link to={`/admin/products-edit/${p._id}`} className="flex items-center w-full space-x-7 ">
-                  <div className="py-2 px-10 ">
-                    <img src={p.thumbnail} alt={p.title} width={'60px'} />
+                <Link to={`/admin/products-edit/${p._id}`} className="flex items-center w-full  ">
+                  <div className="py-1 px-9 ">
+                    <img src={p.thumbnail} alt={p.title} width={'70px'} />
                   </div>
-                  <div className="py-2 px-10">
+                  <div className="py-2 w-[260px] pl-[20px] ml-[50px] ">
                     <div className='font-medium'>{p.title}</div>
                     <div> {p.category?.title} </div>
                   </div>
-                  <div className="py-2 px-10">
+                  <div className="py-2 px-20 ">
                     {formatPrice(p.price)}
                   </div>
                   <div className="py-2 px-20 pl-20">

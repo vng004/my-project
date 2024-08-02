@@ -47,6 +47,15 @@
 }
 
 
+.product-image {
+  transition: transform 0.3s ease; /* Thay đổi thời gian và kiểu hiệu ứng nếu cần */
+}
+
+.product-image:hover {
+  transform: scale(1.1); /* Thay đổi tỷ lệ phóng to nếu cần */
+}
+
+
 
 
 @layer utilities {

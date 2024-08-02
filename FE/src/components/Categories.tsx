@@ -23,22 +23,22 @@ const Categories = () => {
         </div>
         <div className=''>
           <div className={` text-gray-700`}>
-            <div className="flex text-[15px] uppercase font-medium pb-2 pt-4">
-              <div className=" px-10  ">Tên sản phẩm</div>
-              <div className=" px-10 pl-[125px]  ">Mô tả</div>
+            <div className="flex text-[16px] uppercase font-medium pb-2 pt-4">
+              <div className=" px-10  w-[300px]">Tên sản phẩm</div>
+              <div className=" px-10   ml-20">Mô tả</div>
             </div>
 
 
             {stateC.categories?.map((p, index) => (
-              <div key={index} className={`flex items-center border rounded-xl bg-white text-[14px] mt-3 hover:shadow-md`}
+              <div key={index} className={`flex items-center border rounded-xl bg-white text-[17px] mt-3 hover:shadow-md`}
                 onMouseEnter={() => setHoveredRow(index)}
                 onMouseLeave={() => setHoveredRow(null)}>
                 <Link to={`/admin/categories-edit/${p._id}`} className="flex items-center w-full space-x-7 ">
 
-                  <div className="py-6 px-10">
+                  <div className="py-5 px-10 w-[312px]">
                     <div className='font-medium'>{p.title}</div>
                   </div>
-                  <div className="py-6 px-20 pl-20">
+                  <div className="py-5 px-20 pl-20">
                     {p.description}
                   </div>
                 </Link>

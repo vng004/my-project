@@ -34,11 +34,10 @@ const Orders = () => {
       <div className=''>
         <div className={`text-gray-700`}>
           <div className="flex text-[15px] uppercase font-medium pb-2 pt-4">
-            <div className="px-10">Người dùng</div>
-            <div className="px-24">Tổng tiền</div>
+            <div className="px-6">Tên khách hàng</div>
+            <div className="px-16 ml-8">Tổng tiền</div>
             <div className="px-10">Thông tin sản phẩm</div>
-            <div className="px-10">Trạng thái đơn hàng</div>
-            <div className="px-10"></div>
+            <div className="px-10 ml-32">Trạng thái đơn hàng</div>
           </div>
 
           {orders?.map((order, index) => (
@@ -48,24 +47,25 @@ const Orders = () => {
               onMouseEnter={() => setHoveredRow(index)}
               onMouseLeave={() => setHoveredRow(null)}
             >
-              <Link to={`/admin/orders-edit/${order._id}`} className="flex items-center w-full space-x-7">
-                <div className="py-2 px-10">
-                  <div className='font-medium'>{order.user?.userName}</div>
-                  <div>{order.shippingDetails.name}</div>
+              <Link to={`/admin/orders-edit/${order._id}`} className="flex items-center w-full space-x-10">
+                <div className="px-7  w-[195px] ">
+                  <div className='font-semibold text-[16px]'>
+                    {order.shippingDetails.name}
+                  </div>
                 </div>
-                <div className="py-2 px-10">
+                <div className="py-2 px-10 w-[100px]">
                   {formatPrice(order.totalPrice)}
                 </div>
                 <div className="py-2 px-20">
                   {order.products.map((p, idx) => (
-                    <div key={idx} className='flex space-x-3'>
+                    <div key={idx} className='flex space-x-1 items-center  w-[210px]'>
                       <div>{p.product.title}</div>
-                      <div>x{p.quantity}</div>
-                      <div>Size: {p.size}</div>
+                      <div className='text-[13px] '>x{p.quantity}</div>
+                      <div className='pl-3'>Size: {p.size}</div>
                     </div>
                   ))}
                 </div>
-                <div className="py-2 px-20">
+                <div className="py-2 px-11 text-green-400">
                   {order.orderStatus}
                 </div>
               </Link>

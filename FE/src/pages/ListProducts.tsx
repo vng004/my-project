@@ -20,11 +20,14 @@ const ListProducts = () => {
           <div className="flex justify-between">
             <div className="space-y-3 ">
               <div className="font-semibold text-[#003F62]">Danh mục</div>
-              {stateC.categories.map(c => (
-                <Link to={`/products/category/${c._id}`} key={c._id}>
-                  <div>{c.title}</div>
-                </Link>
-              ))}
+              {stateC.categories
+                .filter(c => c._id !== '669c02529765efdfc6352752') // Lọc bỏ danh mục có id là 1
+                .map(c => (
+                  <Link to={`/products/category/${c._id}`} key={c._id}>
+                    <div>{c.title}</div>
+                  </Link>
+                ))}
+
 
             </div>
             <div className="text-[#595959] hover:text-black cursor-pointer">
@@ -35,13 +38,16 @@ const ListProducts = () => {
           <div className='bg-gray-300 w-full h-[1px]'></div>
 
           <div>
-            <div className="font-semibold text-[#003F62] mt-4 mb-4">Tình trạng</div>
+            <div className="font-semibold text-[#003F62] mt-4 mb-4">Giá tiền</div>
             <div className="space-y-3">
-              <div className="font-semibold text-[#303030]">0 đã chọn</div>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <input className="w-[25px] h-[25px] mr-2" type="checkbox" />
-                  <p>Còn hàng</p>
+                  <p>Tăng dần</p>
+                </div>
+                <div className="flex items-center">
+                  <input className="w-[25px] h-[25px] mr-2" type="checkbox" />
+                  <p>Giảm dần</p>
                 </div>
               </div>
             </div>
@@ -73,12 +79,16 @@ const ListProducts = () => {
         {productsByCate.map((product) => (
           <div
             key={product._id}
-            className="product-container border p-5 rounded-xl hover:border-black w-[280px] h-[360px] pt-8 relative"
+            className="product-container p-5 rounded-xl w-[280px] h-[360px] pt-8 relative"
           >
             <div className="flex justify-center">
               <div>
                 <Link to={`/product-detail/${product._id}`}>
-                  <img src={product.thumbnail} className="w-[240px]" />
+                  <img
+                    src={product.thumbnail}
+                    className="product-image w-[240px]" // Sử dụng lớp CSS mới
+                    alt={product.title}
+                  />
                 </Link>
               </div>
             </div>
@@ -87,16 +97,16 @@ const ListProducts = () => {
             <div className="product-details pt-2 space-y-1 text-[17px] font-medium">
               <div>{product.title}</div>
               <div className="text-[14px] text-gray-500">
-              <div className="font-normal">{product.category.title}</div>
-              <div>{formatPrice(product.price)}</div>
+                <div className="font-normal">{product.category.title}</div>
+                <div>{formatPrice(product.price)}</div>
               </div>
             </div>
 
             {/* Buttons */}
-            <div className="product-buttons flex mt-5 space-x-2 ">
-            <Link to={`/product-detail/${product._id}`}>
-            <button  className="border-2 w-[240px] h-[50px] text-black text-[15px] rounded-2xl font-semibold flex items-center justify-center space-x-2">
-                  <div>Add to cart</div>
+            <div className="product-buttons flex mt-5 space-x-2">
+              <Link to={`/product-detail/${product._id}`}>
+                <button className="border-2 w-[240px] h-[50px] text-black text-[15px] rounded-2xl font-semibold flex items-center justify-center space-x-2">
+                  <div>Thêm vào giỏ hàng</div>
                   <i className="fa-brands fa-opencart"></i>
                 </button>
               </Link>
@@ -110,6 +120,7 @@ const ListProducts = () => {
           </div>
         )}
       </div>
+
     </div>
 
 
