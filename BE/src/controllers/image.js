@@ -12,10 +12,8 @@ export const uploadImage = async (req, res, next) => {
             });
         }
 
-        // Tải ảnh đơn lên Cloudinary
         const result = await cloudinary.uploader.upload(file.path);
 
-        // Phản hồi với thông tin chi tiết của ảnh đã tải lên
         res.status(200).json({
             success: true,
             message: "Tải ảnh sản phẩm thành công!",

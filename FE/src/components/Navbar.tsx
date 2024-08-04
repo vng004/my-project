@@ -8,7 +8,6 @@ const Navbar = () => {
   const { user, logout, isCollapsed, setIsCollapsed } = useContext(AuthContext) as AuthContextType;
   const [hoverOut, setHoverOut] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log(user)
   const toggleSubMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -68,7 +67,7 @@ const Navbar = () => {
 
           <div className='flex flex-col text-sm mt-5'>
             <Link
-              to='/'
+              to='/admin'
               className={`${isCollapsed ? 'w-16 pl-5 hover:text-gray-400 focus:border-l-4 focus:border-l-blue-900' : 'border-transparent pl-10 hover:rounded-r-full focus:rounded-r-full hover:shadow-lg focus:border-l-4 focus:border-l-blue-900 focus:shadow-xl focus:text-blue-400 hover:text-blue-400'} p-3`}
             >
               <div className='flex items-center space-x-3'>

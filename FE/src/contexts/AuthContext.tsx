@@ -2,6 +2,7 @@ import { createContext, Dispatch, SetStateAction, useContext, useEffect, useStat
 import { User } from "../interface/user";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../api";
+import { toast } from "react-toastify";
 
 export interface AuthContextType {
   user: User | null;
@@ -51,8 +52,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
   const updateUserRole = async (_id: string, editRole: string) => {
     const res = await instance.patch(`/auth/user/${_id}/role`, { role: editRole })
-
     if (res) {
+      toast.success("Cập nhật vai trò thành công!")
       nav('/admin/users')
     }
   }

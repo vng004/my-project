@@ -55,7 +55,7 @@ const Orders = () => {
                 <div className="p-5 h-[60px] ">
                   {formatPrice(order.totalPrice)}
                 </div>
-                <div className="p-5 h-[60px] ">
+                <div className="p-5  h-[60px] ">
                   {order.products.map((p, index) => (
                     <div key={index} className='flex space-x-1 items-center  w-[210px]'>
                       <div>{p.product.title}</div>

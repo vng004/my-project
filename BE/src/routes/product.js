@@ -11,7 +11,7 @@ routeProduct.get("/search", getList),
     routeProduct.get("/", getList),
     routeProduct.get("/:id", getProductById),
 
-    routeProduct.use("/", checkAuth, checkIsAdmin)
+    // routeProduct.use("/", checkAuth, checkIsAdmin)
 
     routeProduct.delete("/:id", removeProduct),
     routeProduct.post("/", validBodyRequest(productSchema), createProduct),
