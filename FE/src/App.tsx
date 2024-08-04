@@ -18,6 +18,10 @@ import Checkout from './pages/Checkout'
 import Orders from './components/Orders'
 import OrderForm from './components/OrderForm'
 import CategoryForm from './components/CategoryForm'
+import SearchPage from './pages/SearchPage'
+import ForgotPassword from './pages/ForgotPassword'
+import Users from './components/User'
+import UserForm from './components/UserForm'
 
 function App() {
 
@@ -36,6 +40,9 @@ function App() {
           <Route path='/admin/orders' element={<Orders />} />
           <Route path='/admin/orders-edit/:id' element={<OrderForm />} />
           <Route path='/admin/categories-edit/:id' element={<CategoryForm />} />
+          <Route path='/admin/users' element={<Users />} />
+          <Route path='/admin/users-edit/:id' element={<UserForm />} />
+
         </Route>
 
         <Route path='/' element={<Client />}>
@@ -46,9 +53,10 @@ function App() {
           <Route path='/products/category/:id' element={<ListProducts />} />
           <Route path='/products/category' element={<ListProducts />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/profile' element={<Profile />} />
+          {/* <Route path='/profile' element={<Profile />} /> */}
           <Route path='/checkout' element={<Checkout />} />
-          
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
         <Route path='*' element={<Notfound />} />
 

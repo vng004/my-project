@@ -5,4 +5,6 @@ export interface User {
   password: string
   role: 'admin' | 'member'
   thumbnail?: string
+  createdAt: Date
+
 }

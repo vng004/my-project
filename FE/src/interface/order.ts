@@ -11,5 +11,5 @@ export interface Order {
   paymentMethod: string;
   isTransferConfirmed?: boolean; 
   orderStatus: 'Chờ xử lý' | 'Đang xử lý' | 'Đã gửi hàng' | 'Đã giao hàng' ; 
-
+  createdAt: Date
 }

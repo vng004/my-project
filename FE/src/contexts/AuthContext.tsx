@@ -1,20 +1,19 @@
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { User } from "../interface/user";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios để thực hiện các request HTTP
+import { instance } from "../api";
 
 export interface AuthContextType {
-  user: User | null,
+  user: User | null;
   login: (token: string, user: User) => void;
-  logout: () => void,
-  getProfile: () => void;
-  updateProfile: (updatedUser: User) => void;
-  isAdmin: boolean,
-  isCollapsed: boolean, 
-  setIsCollapsed: Dispatch<SetStateAction<boolean>>,
+  logout: () => void;
+  isAdmin: boolean;
+  isCollapsed: boolean;
+  setIsCollapsed: Dispatch<SetStateAction<boolean>>;
+  updateUserRole: (_id: string, role: string) => void
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined)
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -50,42 +49,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     nav("/login");
   };
+  const updateUserRole = async (_id: string, editRole: string) => {
+    const res = await instance.patch(`/auth/user/${_id}/role`, { role: editRole })
 
-  const getProfile = async () => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      try {
-        const response = await axios.get('/api/profile', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error fetching profile", error);
-      }
+    if (res) {
+      nav('/admin/users')
     }
-  };
+  }
 
-  const updateProfile = async (updatedUser: User) => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      try {
-        const response = await axios.put('/api/profile', updatedUser, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setUser(response.data);
-        localStorage.setItem("user", JSON.stringify(response.data));
-      } catch (error) {
-        console.error("Error updating profile", error);
-      }
-    }
-  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, getProfile, updateProfile, isCollapsed, setIsCollapsed, isAdmin: user?.role === "admin" }}>
+    <AuthContext.Provider value={{ user, login, logout, isCollapsed, setIsCollapsed, updateUserRole, isAdmin: user?.role === "admin" }}>
       {children}
     </AuthContext.Provider>
   );

@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 
 const Client = () => {
   const location = useLocation();
-  const hideHeaderPaths = ["/login", "/register"]; // Thêm các đường dẫn mà bạn không muốn hiển thị header
+  const hideHeaderPaths = ["/login", "/register","/forgot-password"]; 
 
   const shouldShowHeader = !hideHeaderPaths.includes(location.pathname);
 

@@ -37,7 +37,7 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    setAttemptedToAdd(true); // Mark that user has tried to add to cart
+    setAttemptedToAdd(true);
     if (product && size) {
       addToCart(product, quantity, size);
     } 
@@ -107,7 +107,6 @@ const ProductDetail = () => {
                   onClick={handleAddToCart}
                   type='button'
                   className={`font-semibold bg-black text-white rounded-full w-[325px] h-[60px] transition-all duration-300 text-[17px] ${!size && attemptedToAdd ? 'cursor-not-allowed opacity-50 hover:bg-black' : 'hover:bg-[#727272]'}`}
-                  // Disable button if size is not selected
                 >
                   Thêm vào giỏ hàng<i className='pl-1 text-[17px] fa-solid fa-cart-plus'></i>
                 </button>

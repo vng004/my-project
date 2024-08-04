@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useEffect, useReducer } from 'react';
-import { instance } from '../api'; // Import your API instance
+import { instance } from '../api';
 import { toast } from 'react-toastify';
 import { Product } from '../interface/product';
 import CartReducers, { CartItem } from '../reducers/cartReducers';
@@ -21,20 +21,21 @@ export type CartContextType = {
 const initialState = {
   products: [] as CartItem[],
   totalPrice: 0
-}
+};
 
-export const CartContext = createContext({} as CartContextType);
+export const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(CartReducers, initialState);
-  const totalQuantity = state.products?.reduce((total, item) => total + item.quantity, 0) || 0;
+  const totalQuantity = state.products.reduce((total, item) => total + item.quantity, 0);
 
   const getCart = async () => {
     try {
       const res = await instance.get('/cart');
       dispatch({ type: "SET_CART", payload: { products: res.data.products, totalPrice: res.data.totalPrice } });
     } catch (error) {
-      console.log(error);
+      console.error(error);
+        // toast.error('Không thể tải giỏ hàng');
     }
   };
 
@@ -58,7 +59,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       await instance.delete(`/cart/${productId}`);
       dispatch({ type: "REMOVE_FROM_CART", payload: { productId } });
       toast.success('Xóa sản phẩm khỏi giỏ hàng thành công!');
-      getCart(); 
+      getCart();
     } catch (error) {
       toast.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
       console.error(error);

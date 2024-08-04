@@ -16,6 +16,8 @@ const orderSchema = new Schema({
         phone: { type: String  },
     },
     orderStatus: { type: String, enum: ['Chờ xử lý', 'Đang xử lý', 'Đã gửi hàng', 'Đã giao hàng'], default: 'Chờ xử lý' },
+    paymentMethod:String,
+
     isDeleted: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now }
 });

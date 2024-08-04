@@ -4,7 +4,6 @@ import { checkAuth } from "../middlewares/checkAuth.js";
 
 const routeCart = Router();
 
-routeCart.use(checkAuth);
 
 routeCart.get("/", getCart);
 

@@ -1,12 +1,24 @@
 import express from "express";
-import { Login, Register } from "../controllers/auth.js";
+import {  getUser, getUserById, getUserInfo, Login, Register, updateUserRole } from "../controllers/auth.js";
 import { validBodyRequest } from "../middlewares/validBodyRequest.js";
 import authSchema from "../validation/authShema.js";
+import { forgotPassword } from "../controllers/forgotPassword.js";
+import { checkAuth } from "../middlewares/checkAuth.js";
 
-const router = express.Router();
+const routerAuth = express.Router();
 
-router.use(validBodyRequest(authSchema));
-router.post("/register", Register);
-router.post("/login", Login);
+routerAuth.post("/forgot-password", forgotPassword);
 
-export default router;
+
+// routerAuth.use(checkAuth)
+routerAuth.get('/user/:id', getUserById);
+routerAuth.get('/user', getUserInfo);
+routerAuth.get('/users', getUser);
+routerAuth.patch('/user/:id/role', updateUserRole);
+
+routerAuth.use(validBodyRequest(authSchema));
+routerAuth.post("/register", Register);
+routerAuth.post("/login", Login);
+
+
+export default routerAuth;

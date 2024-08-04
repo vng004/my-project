@@ -11,16 +11,22 @@ export type ProductContextType = {
   handleProduct: (data: Product) => void;
   formatPrice: (price: number) => string;
   totalProducts: number;
-  productsByCategory: (categoryId: string) => void,
-  productsByCate: Product[]
+  filterProducts: (categoryID: string, page: number, limit: number) => void;
+  productsByCate: Product[];
+  filterByPrice: (minPrice: number, maxPrice: number) => void;
+  sortByPrice: (order: "asc" | "desc") => void;
+  currentPage: number;
+  totalPages: number;
+
 };
 
 export const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(productReducer, { products: [] });
-  const [productsByCate, setProductsByCate] = useState<Product[]>([])
-  const totalProducts = state.products.length
+  const [productsByCate, setProductsByCate] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   useEffect(() => {
     (async () => {
@@ -28,20 +34,36 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
         const { data } = await instance.get('/products');
         dispatch({ type: "SET_PRODUCTS", payload: data.data.docs });
       } catch (error) {
-        toast.error('Không thể tải danh sách sản phẩm');
+        // toast.error('Không thể tải danh sách sản phẩm');
         console.log(error);
       }
     })();
   }, []);
 
-  const productsByCategory = (categoryID: string) => {
-    if (categoryID) {
-      const filtered = state.products.filter(product => product.category._id === categoryID)
-      setProductsByCate(filtered)
-    } else {
-      setProductsByCate(state.products)
+  const filterProducts = async (categoryID: string, page: number, limit: number) => {
+    try {
+      const { data } = await instance.get(`/products?category=${categoryID}&_page=${page}&_limit=${limit}`);
+      setProductsByCate(data.data.docs);
+      setTotalPages(data.data.totalPages);
+      setCurrentPage(page);
+    } catch (error) {
+      toast.error('Không thể tải sản phẩm theo danh mục');
+      console.error(error);
     }
-  }
+  };
+
+
+  const filterByPrice = (minPrice: number, maxPrice: number) => {
+    const filtered = state.products.filter(product => product.price >= minPrice && product.price <= maxPrice);
+    setProductsByCate(filtered);
+  };
+
+  const sortByPrice = (order: "asc" | "desc") => {
+    const sorted = [...productsByCate].sort((a, b) => {
+      return order === "asc" ? a.price - b.price : b.price - a.price;
+    });
+    setProductsByCate(sorted);
+  };
 
   const onRemove = async (id: string) => {
     try {
@@ -83,15 +105,7 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
   return (
     <ProductContext.Provider
       value={{
-        state,
-        dispatch,
-        onRemove,
-        handleProduct,
-        formatPrice,
-        totalProducts,
-        productsByCategory,
-        productsByCate
-      }}
+        state, dispatch, onRemove, handleProduct, formatPrice, totalProducts: state.products.length, filterProducts, productsByCate, filterByPrice, sortByPrice, currentPage, totalPages  }}
     >
       {children}
     </ProductContext.Provider>

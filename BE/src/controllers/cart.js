@@ -112,32 +112,29 @@ export const removeFromCart = async (req, res, next) => {
 
 export const checkout = async (req, res, next) => {
     try {
-        const userId = req.userId;
-        const { name, address, phone, email } = req.body; // Nhận thông tin từ form
-        
-        const cart = await Cart.findOne({ userId }).populate("products.product");
-        if (!cart) return res.status(400).json({ message: "Giỏ hàng rỗng" });
-
-        const order = new Order({
-            user: userId,
-            products: cart.products,
-            totalPrice: cart.totalPrice,
-            shippingDetails: {
-                name,
-                address,
-                phone,
-                email
-            }
-        });
-        await order.save();
-
-        cart.products = [];
-        cart.totalPrice = 0;
-        await cart.save();
-
-        return res.status(200).json({ message: "Thanh toán thành công", order });
+      const userId = req.userId; // Xác minh userId
+      const { shippingDetails, paymentMethod } = req.body; // Đảm bảo nhận đầy đủ dữ liệu từ client
+  
+      const cart = await Cart.findOne({ userId }).populate("products.product" ,"user");
+      if (!cart) return res.status(400).json({ message: "Giỏ hàng rỗng" });
+  
+      const order = new Order({
+        user: userId,
+        products: cart.products,
+        totalPrice: cart.totalPrice,
+        shippingDetails, // Gán trực tiếp
+        paymentMethod // Gán phương thức thanh toán
+      });
+  
+      await order.save();
+  
+      cart.products = [];
+      cart.totalPrice = 0;
+      await cart.save();
+  
+      return res.status(200).json({ message: "Thanh toán thành công", order });
     } catch (error) {
-        next(error);
+      next(error);
     }
-};
-
+  };
+  

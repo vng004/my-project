@@ -33,41 +33,50 @@ const Orders = () => {
       </div>
       <div className=''>
         <div className={`text-gray-700`}>
-          <div className="flex text-[15px] uppercase font-medium pb-2 pt-4">
-            <div className="px-6">Tên khách hàng</div>
-            <div className="px-16 ml-8">Tổng tiền</div>
-            <div className="px-10">Thông tin sản phẩm</div>
-            <div className="px-10 ml-32">Trạng thái đơn hàng</div>
+          <div className="flex text-[13px] uppercase font-medium pb-2 pt-4">
+            <div className="px-5">Tên khách hàng</div>
+            <div className="px-20">Tổng tiền</div>
+            <div className="">Thông tin sản phẩm</div>
+            <div className="px-16 ml-[83px] ">Thời gian</div>
+            <div className="px-10">Trạng thái</div>
           </div>
 
           {orders?.map((order, index) => (
             <div
               key={order._id}
-              className={`flex items-center border rounded-xl bg-white text-[14px] mt-3 hover:shadow-md`}
+              className={`flex items-center border rounded-xl bg-white text-[13px]  mt-3 hover:shadow-md`}
               onMouseEnter={() => setHoveredRow(index)}
               onMouseLeave={() => setHoveredRow(null)}
             >
-              <Link to={`/admin/orders-edit/${order._id}`} className="flex items-center w-full space-x-10">
-                <div className="px-7  w-[195px] ">
-                  <div className='font-semibold text-[16px]'>
-                    {order.shippingDetails.name}
-                  </div>
+              <Link to={`/admin/orders-edit/${order._id}`} className="flex items-center w-full space-x-10 py-1">
+                <div className="p-5 h-[60px] w-[173px] font-semibold text-[14px]">
+                  {order.shippingDetails?.name}
                 </div>
-                <div className="py-2 px-10 w-[100px]">
+                <div className="p-5 h-[60px] ">
                   {formatPrice(order.totalPrice)}
                 </div>
-                <div className="py-2 px-20">
-                  {order.products.map((p, idx) => (
-                    <div key={idx} className='flex space-x-1 items-center  w-[210px]'>
+                <div className="p-5 h-[60px] ">
+                  {order.products.map((p, index) => (
+                    <div key={index} className='flex space-x-1 items-center  w-[210px]'>
                       <div>{p.product.title}</div>
-                      <div className='text-[13px] '>x{p.quantity}</div>
-                      <div className='pl-3'>Size: {p.size}</div>
+                      <div className='text-[11px] '>x{p.quantity}</div>
+                      <div className=''>Size: {p.size}</div>
                     </div>
                   ))}
                 </div>
-                <div className="py-2 px-11 text-green-400">
+                <div className='p-5 h-[60px]'>
+                  {new Date(order.createdAt).toLocaleDateString('vi-VN')}
+                </div>
+                <div
+                  className={`p-5 h-[60px] font-semibold text-[15px] pl-14 ${order.orderStatus === 'Chờ xử lý' ? 'text-red-500' : // Màu cho 'Chờ xử lý'
+                      order.orderStatus === 'Đang xử lý' ? 'text-yellow-500' : 
+                        order.orderStatus === 'Đã gửi hàng' ? 'text-blue-500' : 
+                          'text-green-500' 
+                    }`}
+                >
                   {order.orderStatus}
                 </div>
+
               </Link>
 
               {hoveredRow === index && (

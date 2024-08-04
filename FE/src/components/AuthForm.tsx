@@ -6,6 +6,7 @@ import { instance } from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 import { schemaUser } from '../utils/validation';
+import logo from '../images/logo.png';
 
 type Props = {
   isLogin?: boolean;
@@ -49,7 +50,10 @@ const AuthForm = ({ isLogin }: Props) => {
         <div className="flex-col flex max-w-[400px]">
           <div className="self-start hidden lg:flex flex-col text-gray-300">
             <h1 className="my-3 font-semibold text-4xl">Chào mừng bạn!</h1>
-            <p className="pr-3 text-sm opacity-75">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups</p>
+            <div className='flex items-center'>
+            <p className="pr-3 text-[16px] ">Đã đến và tham gia với chúng tôi</p>
+            <img src={logo} className="w-[100px]" />
+            </div>
           </div>
         </div>
         <div className="bg-white p-10 rounded-lg  shadow-2xl">
@@ -75,7 +79,7 @@ const AuthForm = ({ isLogin }: Props) => {
                   htmlFor="userName"
                   className={`absolute left-4 top-3 transition-all ${errors.userName
                     ? 'text-red-500'
-                    : 'text-[#003F62]'
+                    : 'text-[#003F62] pt-4'
                     }`}
                 >
                   Tên người dùng
@@ -98,7 +102,7 @@ const AuthForm = ({ isLogin }: Props) => {
                 htmlFor="email"
                 className={`absolute left-4 top-3 transition-all ${errors.email
                   ? 'text-red-500'
-                  : 'text-[#003F62]'
+                  : 'text-[#003F62] pt-4'
                   }`}
               >
                 Email
@@ -120,7 +124,7 @@ const AuthForm = ({ isLogin }: Props) => {
                 htmlFor="password"
                 className={`absolute left-4 top-3 transition-all ${errors.password
                   ? 'text-red-500'
-                  : 'text-[#003F62]'
+                  : 'text-[#003F62] pt-4'
                   }`}
               >
                 Mật khẩu
@@ -146,8 +150,15 @@ const AuthForm = ({ isLogin }: Props) => {
               Bạn đã có tài khoản? <Link to={'/login'} className="hover:text-gray-400 underline">Đăng nhập<i className="fa-solid fa-person-circle-check"></i></Link>
             </div>
           ) : (
-            <div className="mt-6 text-center">
+            <div>
+              <div className="mt-6 pb-2 text-center">
+              <Link to={'/forgot-password'} className="hover:text-gray-400 underline">Quên mật khẩu <i className="fa-solid fa-person-circle-exclamation"></i>
+              </Link>
+            </div>
+              <div className=" text-center">
               Bạn chưa có tài khoản? <Link to={'/register'} className="hover:text-gray-400 underline">Tham gia với chúng tôi <i className="fa-solid fa-person-circle-plus"></i></Link>
+            </div>
+            
             </div>
           )}
         </div>

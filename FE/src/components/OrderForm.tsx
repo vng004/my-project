@@ -51,8 +51,12 @@ const OrderForm = () => {
 
           <div className="text-[16px] space-y-5">
             {order && (
-              <div className=''>
-                <div>Trạng thái hiện tại: {order.orderStatus}</div>
+              <div className='flex gap-4'><span>Trạng thái hiện tại:</span>
+                <div className={`font-semibold ${order.orderStatus === 'Chờ xử lý' ? 'text-red-500' : 
+                  order.orderStatus === 'Đang xử lý' ? 'text-yellow-500' :
+                    order.orderStatus === 'Đã gửi hàng' ? 'text-blue-500' :
+                      'text-green-500'
+                  }`}>{order.orderStatus}</div>
               </div>
             )}
             <div className="relative">
@@ -65,11 +69,10 @@ const OrderForm = () => {
                 {...register("orderStatus", { required: 'Trạng thái là bắt buộc' })}
                 disabled={order?.orderStatus === 'Đã giao hàng'}
               >
-                <option value="">Chọn trạng thái</option>
-                <option value="Chờ xử lý">Chờ xử lý</option>
-                <option value="Đang xử lý">Đang xử lý</option>
-                <option value="Đã gửi hàng">Đã gửi hàng</option>
-                <option value="Đã giao hàng">Đã giao hàng</option>
+                <option value="Chờ xử lý " className='text-red-500'>Chờ xử lý</option>
+                <option value="Đang xử lý " className='text-yellow-500'>Đang xử lý</option>
+                <option value="Đã gửi hàng " className='text-blue-500'>Đã gửi hàng</option>
+                <option value="Đã giao hàng " className='text-green-500'>Đã giao hàng</option>
               </select>
               {errors.orderStatus && <p className="pl-[17px] text-red-500">{errors.orderStatus.message}</p>}
             </div>

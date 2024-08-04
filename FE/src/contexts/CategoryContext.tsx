@@ -28,7 +28,7 @@ export const CategoryProvider = ({ children }: { children: React.ReactNode }) =>
         const { data } = await instance.get('/categories')
         dispatch({ type: "SET_CATEGORIES", payload: data.data })
       } catch (error) {
-        toast.error('Không thể tải danh sách danh mục')
+        // toast.error('Không thể tải danh sách danh mục')
         console.log(error)
       }
     })()

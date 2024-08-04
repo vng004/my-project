@@ -59,7 +59,7 @@ const Cart = () => {
         <div className='text-2xl font-semibold mb-5'>Tóm tắt</div>
         <div className='flex justify-between mb-2'>
           <div>Tổng số lượng sản phẩm:</div>
-          <div className='text-[16px] font-semibold'>{totalQuantity}</div>
+          <div className='text-[16px] font-semibold'>x{totalQuantity}</div>
         </div>
         <div className='flex justify-between mb-5'>
           <div>Tổng tiền sản phẩm:</div>
@@ -71,8 +71,7 @@ const Cart = () => {
        <Link to={'/checkout'}>
        <button
           type='button'
-          // onClick={checkout} // Correctly handle checkout
-          className='font-semibold ml-2 bg-black hover:bg-[#727272] text-white rounded-full w-full h-[60px] transition-all duration-300 text-[17px]'
+          className='font-semibold bg-black mt-10 hover:bg-[#727272] text-white rounded-full w-full h-[60px] transition-all duration-300 text-[17px]'
         >
           Thanh toán<i className='pl-2 fa-solid fa-money-check-dollar'></i>
         </button></Link>

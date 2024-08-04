@@ -2,12 +2,11 @@ import mongoose, { Schema } from "mongoose";
 
 const shemaUser = new mongoose.Schema(
 	{
-		username: {
+		userName: {
 			type: String,
 		},
 		password: {
 			type: String,
-			required: true,
 		},
 		email: {
 			type: String,
@@ -26,6 +25,7 @@ const shemaUser = new mongoose.Schema(
 			type: Schema.Types.ObjectId,
 			ref: "Cart",
 		},
+		thumbnail: String
 	},
 	{ timestamps: true, versionKey: false }
 );
